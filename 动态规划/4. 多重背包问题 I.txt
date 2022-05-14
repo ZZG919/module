@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,bag;
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin >> n >> bag;
+	vector<int> limit,w,v;
+	for(int i=0;i<n;i++)
+	{
+		int a,b,c;
+		cin >> a >> b >> c;
+		w.push_back(a);
+		v.push_back(b);
+		limit.push_back(c);
+	} 
+	vector<int> dp(bag+1,0);
+	for(int i=0;i<n;i++)
+	{
+		for(int j=bag;j>=w[i];j--)
+		{
+			for(int k=1;k<=limit[i];k++)
+			{
+				if(j>=k*w[i])
+					dp[j]=max(dp[j],dp[j-k*w[i]]+k*v[i]);	
+			} 
+		}
+	}
+	cout << dp[bag];
+    return 0;
+}
